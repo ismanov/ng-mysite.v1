@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние письма{% endblock %}
+
+{% block content %} 
+
+    {% if latest_celery %}
+        {% for a in latest_celery %}
+            <a href="{% url 'celery:deteil' a.id %}">{{a.celery_title}}</a>
+        {% endfor %}
+    {% else %}
+        К сожелению писем нет =(
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{celery.celery_title}}{% endblock %}
+
+{% block content %} 
+<h2>{{celery.celery_title}}</h2>
+
+<p>{{celery.celery_text}}</p>
+
+<em>{{celery.pub_date}}</em>
+
+{% if celery.was_publ_rec %}
+Новое письбо
+{% endif %}
+
+<hr>
+{% if letest_comment_list %}
+
+    {% for c in letest_comment_list %}
+        <p>
+            <strong>{{c.spes_name}}</strong>
+            <p>{{c.comment_text}}</p>
+        </p>
+    {% endfor %}
+{% else %}
+Нет исполнителей!
+
+{% endif %}
+<hr>
+
+<form action="{% url 'celery:leave_com' celery.id %}" method="post">
+
+
+<input type="text" required placeholder="Ваше имя"><br>
+<textarea name="text" required placeholder="Коментарии к служебному письму" cols="30" rows="10"></textarea>
+<button type="submit">Опубликовать</button>
+</form>
+{% endblock %}
