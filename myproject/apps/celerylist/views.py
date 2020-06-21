@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import Celery
-
+import requests
 
 def index(request):
     latest_celery = Celery.objects.order_by('-pub_date')[:8]
@@ -30,3 +30,9 @@ def leave_com(request, celery_id):
     a.comment_set.create(spes_name = request.POST['name'], comment_text = request.POST['text'])
 
     return HttpResponseRedirect( reverse('celery:deteil.html', args= (a.id, )) )
+
+
+def index(request):
+    r = requests.get('http://httpbin.org/status/418')
+    print(r.text)
+    return HttpResponse('<pre>' + r.text + '</pre>')
